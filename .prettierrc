@@ -1,3 +1,8 @@
 {
-  "singleQuote": true
+  "singleQuote": true,
+  "tabWidth": 2,
+  "semi": true,
+  "endOfLine": "lf",
+  "printWidth": 160,
+  "bracketSameLine": true
 }

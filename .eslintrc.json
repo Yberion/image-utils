@@ -1,23 +1,52 @@
 {
   "root": true,
   "ignorePatterns": ["!**/*"],
-  "plugins": ["@nx"],
+  "plugins": ["@nx", "unused-imports"],
+  "extends": ["plugin:deprecation/recommended"],
+  "parserOptions": {
+    "project": ["tsconfig.*?.json"]
+  },
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nx/typescript"],
-      "rules": {}
+      "files": ["*.ts", "*.js"],
+      "rules": {
+        "unused-imports/no-unused-imports": "error",
+        "prefer-const": "error"
+      }
     },
     {
-      "files": ["*.js", "*.jsx"],
+      "files": ["*.ts"],
+      "extends": ["plugin:@nx/typescript"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": ["error"],
+        "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+        "semi": ["error", "always"],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+          "error",
+          {
+            "vars": "all",
+            "args": "after-used",
+            "argsIgnorePattern": "^_"
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.js"],
       "extends": ["plugin:@nx/javascript"],
       "rules": {}
     },
     {
-      "files": ["*.json"],
+      "files": ["package.json"],
       "parser": "jsonc-eslint-parser",
       "rules": {
-        "@nx/dependency-checks": "error"
+        "@nx/dependency-checks": [
+          "error",
+          {
+            "ignoredDependencies": ["tslib", "vite", "@nx/vite"]
+          }
+        ]
       }
     }
   ]

@@ -1,17 +1,19 @@
 {
-  "name": "bf-image-utils",
+  "name": "@yberion/image-utils",
   "$schema": "node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "src",
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nx/js:tsc",
+      "executor": "@nx/esbuild:esbuild",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/bf-image-utils",
+        "outputPath": "dist",
         "main": "./src/index.ts",
         "tsConfig": "./tsconfig.lib.json",
-        "assets": ["*.md"]
+        "assets": [],
+        "format": ["cjs", "esm"],
+        "minify": true
       }
     },
     "lint": {
@@ -23,10 +25,10 @@
     },
     "test": {
       "executor": "@nx/vite:test",
-      "outputs": ["coverage/bf-image-utils"],
+      "outputs": ["{projectRoot}/coverage"],
       "options": {
         "passWithNoTests": true,
-        "reportsDirectory": "coverage/bf-image-utils"
+        "reportsDirectory": "coverage"
       }
     }
   },
