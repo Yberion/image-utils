@@ -7,25 +7,30 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "commonjs",
-    "lib": ["es2020", "dom"],
+    "esModuleInterop": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "bf-image-utils": ["src/index.ts"]
+      "@yberion/image-utils": ["src/index.ts"]
     },
-    "types": ["vitest"]
+    "types": ["vitest"],
+    "useDefineForClassFields": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowUnreachableCode": false,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true
   },
-  "files": [],
-  "include": [],
-  "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ]
+  "files": ["commitlint.config.cts", "changelog.config.ts"],
+  "exclude": ["commitlint.config.cts", "changelog.config.ts"],
+  "include": []
 }

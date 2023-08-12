@@ -1,1 +1,1 @@
-export * from './lib/bf-image-utils';
+export { imageUtils } from './lib/image-utils';

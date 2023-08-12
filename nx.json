@@ -4,7 +4,7 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "lint", "test"]
       }
     }
   },
@@ -14,11 +14,7 @@
       "inputs": ["production", "^production"]
     },
     "lint": {
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore"
-      ]
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json", "{workspaceRoot}/.eslintignore"]
     },
     "test": {
       "inputs": ["default", "^production"]
@@ -30,8 +26,14 @@
       "default",
       "!{projectRoot}/.eslintrc.json",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
-      "!{projectRoot}/tsconfig.spec.json"
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/changelog.config.ts",
+      "!{projectRoot}/commitlint.config.cts"
     ],
     "sharedGlobals": []
+  },
+  "cli": {
+    "packageManager": "pnpm",
+    "analytics": false
   }
 }
