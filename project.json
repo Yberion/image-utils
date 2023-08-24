@@ -13,7 +13,7 @@
         "tsConfig": "./tsconfig.lib.json",
         "assets": [],
         "format": ["cjs", "esm"],
-        "minify": true
+        "minify": false
       }
     },
     "lint": {

@@ -30,7 +30,13 @@
     "pnpm": "^8.6.10"
   },
   "dependencies": {
-    "tslib": "~2.6.2"
+    "@clack/core": "~0.3.3",
+    "@clack/prompts": "~0.7.0",
+    "@supercharge/promise-pool": "~3.0.0",
+    "glob": "~10.3.3",
+    "sharp": "~0.32.5",
+    "tslib": "~2.6.2",
+    "valibot": "~0.13.1"
   },
   "devDependencies": {
     "@commitlint/cli": "~17.7.1",

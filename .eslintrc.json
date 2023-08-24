@@ -44,7 +44,7 @@
         "@nx/dependency-checks": [
           "error",
           {
-            "ignoredDependencies": ["tslib", "vite", "@nx/vite"]
+            "ignoredDependencies": ["tslib", "@clack/core", "vite", "@nx/vite"]
           }
         ]
       }

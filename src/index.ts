@@ -1,1 +1,3 @@
-export { imageUtils } from './lib/image-utils';
+import { main } from './lib/main';
+
+main();
