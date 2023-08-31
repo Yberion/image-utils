@@ -1,5 +1,5 @@
 import { cancel, intro, outro, spinner } from '@clack/prompts';
-import { PromisePool } from '@supercharge/promise-pool';
+import { PromisePool, Statistics, Stoppable } from '@supercharge/promise-pool';
 import {
   ACTION,
   CONCURRENT_IMAGE_PROCESSING_NUMBER,
@@ -82,23 +82,29 @@ async function actionOptimizeImage(selectedFolderName: string): Promise<void> {
   const imagePaths: string[] = getImagePaths(selectedFolderName);
   const optimizationMaxWidth: number = await menuSelectMaxWidth();
 
-  let optimizedImageCounter = 0;
   const optimizationSpinner = spinner();
   optimizationSpinner.start('Optimizing image(s)');
 
+  const startHrTime = process.hrtime();
   try {
-    const { results } = await PromisePool.for(imagePaths)
+    await PromisePool
+      .for(imagePaths)
       .withConcurrency(CONCURRENT_IMAGE_PROCESSING_NUMBER)
+      .onTaskFinished((_item: string, pool: Stoppable & Statistics<string>) => {
+        optimizationSpinner.message(`Optimizing image(s) : ${pool.processedCount()}/${imagePaths.length} in ${elapsedHrTime(startHrTime)} second(s) - ${Math.round(pool.processedPercentage())}%`);
+      })
       .process(async (imagePath: string) => {
         return await optimizeImage({ pathToImage: imagePath, outputFolderName: OPTIMIZED_FOLDER_NAME, maxWidth: optimizationMaxWidth });
       });
-
-    optimizedImageCounter = results.filter((value) => value).length;
   } catch (e) {
     console.error(e);
     cancel();
     process.exit(0);
   }
 
-  optimizationSpinner.stop(`${optimizedImageCounter} image(s) optimized`);
+  optimizationSpinner.stop(`${imagePaths.length} image(s) optimized in ${elapsedHrTime(startHrTime)} second(s)`);
+}
+
+function elapsedHrTime(startHrTime: [number, number]): string {
+  return (process.hrtime(startHrTime)[0] + process.hrtime(startHrTime)[1] / 1e9).toFixed(3);
 }
